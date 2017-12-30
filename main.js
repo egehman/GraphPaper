@@ -1,18 +1,35 @@
+function loadPage() {
+  drawCanvas();
+  document.getElementById('save').addEventListener('click', savePDF);
+}
+
+function savePDF() {
+  let canvas = document.getElementById('graph');
+  let img = canvas.toDataURL();
+
+  let doc = new jsPDF('portrait', 'mm', 'letter');
+  doc.addImage(img, 'JPEG', 0, 0);
+  doc.save('letter.pdf');
+}
+
 function drawCanvas() {
-  let canvas = document.getElementById("graph");
-  let ctx = canvas.getContext("2d");
+  let canvas = document.getElementById('graph');
+  let ctx = canvas.getContext('2d');
 
-  let width = canvas.width;
-  let height = canvas.height;
-  let spacing = 10;
+  let spacing = 16;
+  let width = 816;
+  let height = 1056;
+
+  canvas.width = width;
+  canvas.height = height;
+
   let yPos = 0;
-  let xPos = 0;
-
   while (yPos < height) {
     yPos = yPos + spacing;
     drawHorizontalLine(ctx, yPos, width)
   }
 
+  let xPos = 0;
   while (xPos < width) {
     xPos = xPos + spacing;
     drawVerticalLine(ctx, xPos, height);
