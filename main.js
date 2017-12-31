@@ -1,6 +1,7 @@
 function loadPage() {
   drawCanvas();
   document.getElementById('save').addEventListener('click', savePDF);
+  document.getElementById('generate').addEventListener('click', drawCanvas);
 }
 
 function savePDF() {
@@ -12,13 +13,27 @@ function savePDF() {
   doc.save('letter.pdf');
 }
 
+function getSpacing() {
+  let spacingString = document.getElementById('spacing').value;
+  let spacingNum = Number(spacingString);
+  return Math.floor(spacingNum*96);
+}
+
+function getWidth() {
+  return 816;
+}
+
+function getHeight() {
+  return 1056;
+}
+
 function drawCanvas() {
+  let spacing = getSpacing();
+  let width = getWidth();
+  let height = getHeight();
+
   let canvas = document.getElementById('graph');
   let ctx = canvas.getContext('2d');
-
-  let spacing = 16;
-  let width = 816;
-  let height = 1056;
 
   canvas.width = width;
   canvas.height = height;
