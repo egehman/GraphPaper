@@ -8,12 +8,17 @@
 </head>
 <body onload="loadPage()">
   <div class="container">
-    <h1>Graph Paper</h1>
     <div class="row">
-      <canvas id="graph"></canvas>
+      <h1>Graph Paper</h1>
     </div>
     <div class="row">
+      <label for="spacing">Line spacing in inches:</label>
+      <input type="text" id="spacing" value=".25">
+      <button class="btn btn-primary" id="generate">Generate</button>
       <button class="btn btn-primary" id="save">Save</button>
+    </div>
+    <div class="row">
+      <canvas id="graph"></canvas>
     </div>
   </div>
   <script src="main.js"></script>
