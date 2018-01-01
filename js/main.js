@@ -1,7 +1,14 @@
-function loadPage() {
+const DPI = 96;
+
+$(document).ready(function() {
+  setDefaultValues();
   drawCanvas();
-  document.getElementById('save').addEventListener('click', savePDF);
-  document.getElementById('generate').addEventListener('click', drawCanvas);
+  $('#generate').click(drawCanvas);
+  $('#save').click(savePDF);
+})
+
+function setDefaultValues() {
+  document.getElementById('spacing').value = '.25';
 }
 
 function savePDF() {
@@ -13,18 +20,24 @@ function savePDF() {
   doc.save('letter.pdf');
 }
 
+function getPixelsFromInches(inches) {
+  return Math.floor(inches*DPI);
+}
+
 function getSpacing() {
   let spacingString = document.getElementById('spacing').value;
   let spacingNum = Number(spacingString);
-  return Math.floor(spacingNum*96);
+  return getPixelsFromInches(spacingNum);
 }
 
 function getWidth() {
-  return 816;
+  let inches = 8.5;
+  return getPixelsFromInches(inches);
 }
 
 function getHeight() {
-  return 1056;
+  let inches = 11;
+  return getPixelsFromInches(inches);
 }
 
 function drawCanvas() {
