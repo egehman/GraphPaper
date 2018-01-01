@@ -1,4 +1,5 @@
 const DPI = 96;
+const DEFAULT_SPACING = '.25';
 
 $(document).ready(function() {
   setDefaultValues();
@@ -8,7 +9,7 @@ $(document).ready(function() {
 })
 
 function setDefaultValues() {
-  document.getElementById('spacing').value = '.25';
+  document.getElementById('spacing').value = DEFAULT_SPACING;
 }
 
 function savePDF() {
@@ -24,10 +25,27 @@ function getPixelsFromInches(inches) {
   return Math.floor(inches*DPI);
 }
 
+function getPixelsFromCentimeters(cm) {
+  let inches = cm*0.39370;
+  return getPixelsFromInches(inches);
+}
+
 function getSpacing() {
+  let units = $('#units').val();
   let spacingString = document.getElementById('spacing').value;
   let spacingNum = Number(spacingString);
-  return getPixelsFromInches(spacingNum);
+  let spacing;
+  if (units == 'in') {
+    spacing = getPixelsFromInches(spacingNum);
+  } else {
+    spacing = getPixelsFromCentimeters(spacingNum);
+  }
+  if (spacing == 0) {
+    alert('Spacing too small, reverting to default')
+    document.getElementById('spacing').value = DEFAULT_SPACING;
+    return getSpacing();
+  }
+  return spacing;
 }
 
 function getWidth() {

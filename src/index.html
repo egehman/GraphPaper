@@ -41,7 +41,11 @@
 
   <div class="container">
     <div class="row">
-      <label for="spacing">Line spacing in inches:</label>
+      <label for="spacing">Line spacing in</label>
+      <select name="units" id="units">
+        <option value="in">inches</option>
+        <option value="cm">cm</option>
+      </select>
       <input type="text" id="spacing">
       <button class="btn btn-primary" id="generate">Generate</button>
       <button class="btn btn-primary" id="save">Save</button>
