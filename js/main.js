@@ -6,7 +6,7 @@ $(document).ready(function() {
   drawCanvas();
   $('#generate').click(drawCanvas);
   $('#save').click(savePDF);
-})
+});
 
 function setDefaultValues() {
   document.getElementById('spacing').value = DEFAULT_SPACING;
@@ -18,7 +18,16 @@ function savePDF() {
 
   let doc = new jsPDF('portrait', 'mm', 'letter');
   doc.addImage(img, 'JPEG', 0, 0);
-  doc.save('letter.pdf');
+  mobileSave(doc);
+}
+
+function mobileSave(doc) {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    let blob = doc.output();
+    window.open(URL.createObjectURL(blob));
+  } else {
+    doc.save('letter.pdf');
+  }
 }
 
 function getPixelsFromInches(inches) {
